@@ -1,7 +1,11 @@
-import React from 'react';
-
 const Footer = () => {
-  return <div>footer</div>;
+  const year = new Date().getFullYear();
+
+  return (
+    <footer>
+      <h4>{`Todos os direitos reservados - ${year} - Willyan H.P. Bertolino`}</h4>
+    </footer>
+  );
 };
 
 export default Footer;

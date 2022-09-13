@@ -1,0 +1,1 @@
+export const GET_ALL_PROTOCOLS = 'GET_ALL_PROTOCOLS';
