@@ -1,12 +1,13 @@
 import React, { useEffect, useContext, useReducer } from 'react';
 import reducer from '../reducers/protocols_reducers';
 import axios from 'axios';
-import { GET_ALL_PROTOCOLS } from '../actions';
+import { GET_ALL_PROTOCOLS, UPDATE_FILTER, UPDATE_PROTOCOL } from '../actions';
 
 const initialState = {
   protocols: [],
-  filtered_protocols: [],
+  protocols_filtered: [],
   filter: '',
+  protocol_to_update: {},
   page: '',
   max: '',
 };
@@ -17,7 +18,11 @@ const ProtocolProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const setFilter = (key) => {
-    //dispatch({ type: UPDATE_FILTER, payload: key });
+    dispatch({ type: UPDATE_FILTER, payload: key });
+  };
+
+  const updateProtocol = (id) => {
+    dispatch({ type: UPDATE_PROTOCOL, payload: id });
   };
 
   const getProtocols = async () => {
@@ -55,6 +60,8 @@ const ProtocolProvider = ({ children }) => {
       value={{
         ...state,
         setFilter,
+        updateProtocol,
+
         // fetchProducts,
         // fetchSingleProduct,
       }}

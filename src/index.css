@@ -5,7 +5,7 @@
 :root {
   --clr-primary-1: #2c3b2a;
   --clr-primary-2: #4d684a;
-  --clr-primary-3: #91b68d;
+  --clr-primary-3: #73996f;
   --clr-primary-4: #aec3ab;
   --clr-secondary-1: #ebe156;
   --clr-secondary-2: #fbf7b2;
@@ -50,6 +50,23 @@ a:visited {
 
 img {
   display: block;
+}
+
+textarea {
+  height: 6rem;
+}
+
+input {
+  height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+textarea,
+input {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+  outline: none;
 }
 
 .center-width {
@@ -115,16 +132,54 @@ main {
   color: var(--clr-primary-3);
   padding: 0.75rem 1.5rem;
   transition: var(--transition);
+  outline: none;
+  border: none;
   cursor: pointer;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  font-family: var(--ff-primary);
 }
 
+.btn-icon:hover,
 .btn-link:hover {
   background: var(--clr-primary-3);
   color: var(--clr-primary-1);
 }
 
+.btn-submit {
+  margin-top: 1rem;
+  justify-self: center;
+}
+
+.btn-icon {
+  display: grid;
+  place-items: center;
+  background: var(--clr-primary-1);
+  color: var(--clr-primary-3);
+  width: 25px;
+  height: 25px;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  font-family: var(--ff-primary);
+}
+
+.controls {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .name {
   font-size: 2rem;
+}
+
+.num {
+  padding-right: 1rem;
 }
 
 footer {
@@ -132,4 +187,34 @@ footer {
   display: grid;
   place-items: center;
   height: 6rem;
+}
+
+.new-container {
+  display: grid;
+  place-items: center;
+}
+
+.new-input-box {
+  background: var(--clr-primary-2);
+  width: 40%;
+  padding: 2rem;
+  display: grid;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 2rem;
+}
+
+.filter {
+  width: 20rem;
+  padding: 0.5rem;
+  margin: auto 0.3rem;
+}
+
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

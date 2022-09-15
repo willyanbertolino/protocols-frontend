@@ -7,7 +7,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayoutGlobal />}>
           <Route index element={<Home />} />
-          <Route path="protocolos" element={<Protocols />} />
+          <Route path="protocolos/:protocolId" element={<Protocols />} />
         </Route>
       </Routes>
     </BrowserRouter>
