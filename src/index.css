@@ -42,6 +42,7 @@ ul {
 a {
   text-decoration: none;
   color: var(--clr-primary-3);
+  display: inline-block;
 }
 
 a:visited {
@@ -168,6 +169,10 @@ main {
   font-family: var(--ff-primary);
 }
 
+.btn-nav {
+  margin-right: 1rem;
+}
+
 .controls {
   width: 80%;
   display: flex;
@@ -180,6 +185,10 @@ main {
 
 .num {
   padding-right: 1rem;
+}
+
+.material-icons {
+  font-size: medium;
 }
 
 footer {
@@ -217,4 +226,45 @@ footer {
 p {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.msg {
+  max-width: 50%;
+  margin: 1.5rem auto;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.success {
+  background: var(--clr-secondary-2);
+}
+
+.fail {
+  background: var(--clr-secondary-3);
+}
+
+/* modal */
+.modal-container {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: var(--clr-primary-4);
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 2rem;
+  border: 1px dotted var(--clr-primary-2);
+  width: 30%;
+}
+
+.control {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
 }

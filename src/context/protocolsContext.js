@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useReducer } from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import reducer from '../reducers/protocols_reducers';
 import axios from 'axios';
 import { GET_ALL_PROTOCOLS, UPDATE_FILTER, UPDATE_PROTOCOL } from '../actions';
@@ -16,6 +16,7 @@ const ProtocolContext = React.createContext();
 
 const ProtocolProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [updateProtocolList, setUpdateProtocolList] = useState(false);
 
   const setFilter = (key) => {
     dispatch({ type: UPDATE_FILTER, payload: key });
@@ -30,6 +31,7 @@ const ProtocolProvider = ({ children }) => {
       const { data } = await axios.get(
         `/api/v1/protocols?page=${state.page}&max=${state.max}`
       );
+      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
@@ -53,7 +55,7 @@ const ProtocolProvider = ({ children }) => {
       }
     }
     fetchData();
-  }, [state.page, state.max]);
+  }, [updateProtocolList, state.page, state.max]);
 
   return (
     <ProtocolContext.Provider
@@ -61,7 +63,8 @@ const ProtocolProvider = ({ children }) => {
         ...state,
         setFilter,
         updateProtocol,
-
+        updateProtocolList,
+        setUpdateProtocolList,
         // fetchProducts,
         // fetchSingleProduct,
       }}
