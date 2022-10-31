@@ -10,7 +10,6 @@ const initialState = {
   filter: '',
   protocol_to_update: {},
   page: '',
-  max: '',
 };
 
 const ProtocolContext = React.createContext();
@@ -29,14 +28,9 @@ const ProtocolProvider = ({ children }) => {
 
   const getProtocols = async () => {
     try {
-      console.log(
-        'url: ',
-        `${baseURL}/api/v1/protocols?page=${state.page}&max=${state.max}`
-      );
       const { data } = await axios.get(
         `${baseURL}/api/v1/protocols?page=${state.page}&max=${state.max}`
       );
-      console.log('data: ', data);
       return data;
     } catch (error) {
       console.log(error);
@@ -46,18 +40,18 @@ const ProtocolProvider = ({ children }) => {
   useEffect(() => {
     async function fetchData() {
       const { protocols } = await getProtocols();
-      console.log('protocols: ', protocols);
       if (protocols.length !== 0) {
         dispatch({ type: GET_ALL_PROTOCOLS, payload: protocols });
       }
     }
     fetchData();
-  }, [updateProtocolList, state.page, state.max]);
+  }, [updateProtocolList, state.page]);
 
   return (
     <ProtocolContext.Provider
       value={{
         ...state,
+        updateProtocolList,
         setFilter,
         updateProtocol,
         setUpdateProtocolList,

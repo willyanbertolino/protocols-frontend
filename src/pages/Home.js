@@ -44,6 +44,7 @@ const Home = () => {
         if (data.success) {
           setLoading(false);
           setInfo({ msg: 'Protocolo excluido com sucesso', type: 'success' });
+          console.log(updateProtocolList);
           setUpdateProtocolList(!updateProtocolList);
           setDeleteConfirm({ id: '', confirm: false });
         }
