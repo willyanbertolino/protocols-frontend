@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useReducer } from 'react';
 import reducer from '../reducers/protocols_reducers';
 import axios from 'axios';
 import { GET_ALL_PROTOCOLS, UPDATE_FILTER, UPDATE_PROTOCOL } from '../actions';
+import { baseURL } from '../utils/baseURL';
 
 const initialState = {
   protocols: [],
@@ -28,28 +29,24 @@ const ProtocolProvider = ({ children }) => {
 
   const getProtocols = async () => {
     try {
-      const { data } = await axios.get(
-        `/api/v1/protocols?page=${state.page}&max=${state.max}`
+      console.log(
+        'url: ',
+        `${baseURL}/api/v1/protocols?page=${state.page}&max=${state.max}`
       );
-      console.log(data);
+      const { data } = await axios.get(
+        `${baseURL}/api/v1/protocols?page=${state.page}&max=${state.max}`
+      );
+      console.log('data: ', data);
       return data;
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const fetchSingleProduct = async (id) => {
-  //   try {
-  //     const { data } = await axios.get(`/api/v1/protocols/${id}`);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     async function fetchData() {
       const { protocols } = await getProtocols();
+      console.log('protocols: ', protocols);
       if (protocols.length !== 0) {
         dispatch({ type: GET_ALL_PROTOCOLS, payload: protocols });
       }
@@ -63,10 +60,7 @@ const ProtocolProvider = ({ children }) => {
         ...state,
         setFilter,
         updateProtocol,
-        updateProtocolList,
         setUpdateProtocolList,
-        // fetchProducts,
-        // fetchSingleProduct,
       }}
     >
       {children}

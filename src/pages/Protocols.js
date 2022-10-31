@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useProtocolContext } from '../context/protocolsContext';
 import { Loading } from '../components';
 import axios from 'axios';
+import { baseURL } from '../utils/baseURL';
 
 const protocolDefault = {
   id: '',
@@ -57,7 +58,10 @@ const Protocols = () => {
 
     if (protocolId === 'novo') {
       try {
-        const { data } = await axios.post('/api/v1/protocols', newProtocol);
+        const { data } = await axios.post(
+          `${baseURL}/api/v1/protocols`,
+          newProtocol
+        );
         setLoading(false);
         if (data.success) {
           setProtocol(protocolDefault);
@@ -71,7 +75,7 @@ const Protocols = () => {
     } else {
       try {
         const { data } = await axios.patch(
-          `/api/v1/protocols/${protocolId}`,
+          `${baseURL}/api/v1/protocols/${protocolId}`,
           newProtocol
         );
         if (data.protocol) setLoading(false);

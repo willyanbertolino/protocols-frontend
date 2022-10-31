@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useProtocolContext } from '../context/protocolsContext';
 import { Loading } from '../components';
+import { baseURL } from '../utils/baseURL';
 
 const Home = () => {
   const {
@@ -38,7 +39,7 @@ const Home = () => {
     try {
       if (deleteConfirm.type === 'delete' && deleteConfirm.id) {
         const { data } = await axios.delete(
-          `/api/v1/protocols/${deleteConfirm.id}`
+          `${baseURL}/api/v1/protocols/${deleteConfirm.id}`
         );
         if (data.success) {
           setLoading(false);
@@ -50,7 +51,7 @@ const Home = () => {
       }
       if (deleteConfirm.type === 'reset') {
         setLoading(false);
-        const { data } = await axios.get('/api/v1/protocols/reset');
+        const { data } = await axios.get(`${baseURL}/api/v1/protocols/reset`);
         setInfo({ msg: data.msg, type: 'success' });
         console.log(data);
         setUpdateProtocolList(!updateProtocolList);
