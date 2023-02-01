@@ -1,28 +1,30 @@
-import { GET_ALL_PROTOCOLS, UPDATE_FILTER, UPDATE_PROTOCOL } from '../actions';
+import {
+  GET_ALL_PROTOCOLS,
+  UPDATE_FILTER,
+  UPDATE_PROTOCOL,
+  CHANGE_PAGE,
+} from '../actions';
 
 const protocols_reducer = (state, action) => {
   if (action.type === GET_ALL_PROTOCOLS) {
+    const { protocols, maxPage } = action.payload;
     return {
       ...state,
-      protocols: action.payload,
-      protocols_filtered: action.payload,
+      protocols,
+      maxPage,
+    };
+  }
+  if (action.type === CHANGE_PAGE) {
+    return {
+      ...state,
+      page: action.payload,
     };
   }
 
   if (action.type === UPDATE_FILTER) {
-    const { protocols } = state;
-
-    let temp = [];
-    temp = protocols.filter((item) => {
-      return item.requester
-        .toLowerCase()
-        .includes(action.payload.toLowerCase());
-    });
-
     return {
       ...state,
       filter: action.payload,
-      protocols_filtered: temp,
     };
   }
 

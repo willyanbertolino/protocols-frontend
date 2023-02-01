@@ -22,6 +22,7 @@ const Protocols = () => {
   const [protocol, setProtocol] = useState(protocolDefault);
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState({ msg: '', type: '' });
+  const [infoController, setInfoControler] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +42,7 @@ const Protocols = () => {
       setInfo({ msg: '', type: '' });
     }, 3000);
     return () => clearTimeout(timer);
-  }, [info]);
+  }, [infoController]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,11 +67,13 @@ const Protocols = () => {
         if (data.success) {
           setProtocol(protocolDefault);
           setInfo({ msg: 'Protocolo criado com sucesso', type: 'success' });
+          setInfoControler(!infoController);
           setUpdateProtocolList(!updateProtocolList);
         }
       } catch (error) {
         setLoading(false);
         setInfo({ msg: error.response.data.msg, type: 'fail' });
+        setInfoControler(!infoController);
       }
     } else {
       try {
@@ -82,15 +85,23 @@ const Protocols = () => {
         if (data) {
           setUpdateProtocolList(!updateProtocolList);
           setInfo({ msg: 'Protocolo editado com sucesso', type: 'success' });
+          setInfoControler(!infoController);
         }
       } catch (error) {
+        console.log(error);
         setLoading(false);
         setInfo({ msg: error.response.data.msg, type: 'fail' });
+        setInfoControler(!infoController);
       }
     }
   };
 
-  if (loading) return <Loading />;
+  if (loading)
+    return (
+      <div className="center-height">
+        <Loading />
+      </div>
+    );
 
   return (
     <div className="center-width main-height">

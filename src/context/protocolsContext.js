@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useContext, useReducer } from 'react';
 import reducer from '../reducers/protocols_reducers';
 import axios from 'axios';
-import { GET_ALL_PROTOCOLS, UPDATE_FILTER, UPDATE_PROTOCOL } from '../actions';
+import {
+  GET_ALL_PROTOCOLS,
+  UPDATE_FILTER,
+  UPDATE_PROTOCOL,
+  CHANGE_PAGE,
+} from '../actions';
 import { baseURL } from '../utils/baseURL';
 
 const initialState = {
   protocols: [],
-  protocols_filtered: [],
   filter: '',
   protocol_to_update: {},
-  page: '',
+  page: 1,
+  maxPage: 1,
 };
 
 const ProtocolContext = React.createContext();
@@ -29,7 +34,7 @@ const ProtocolProvider = ({ children }) => {
   const getProtocols = async () => {
     try {
       const { data } = await axios.get(
-        `${baseURL}/api/v1/protocols?page=${state.page}&max=${state.max}`
+        `${baseURL}/api/v1/protocols?page=${state.page}&search=${state.filter}`
       );
       return data;
     } catch (error) {
@@ -39,13 +44,18 @@ const ProtocolProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const { protocols } = await getProtocols();
+      const { protocols, maxPage } = await getProtocols();
       if (protocols.length !== 0) {
-        dispatch({ type: GET_ALL_PROTOCOLS, payload: protocols });
+        dispatch({ type: GET_ALL_PROTOCOLS, payload: { protocols, maxPage } });
       }
+      return;
     }
     fetchData();
-  }, [updateProtocolList, state.page]);
+  }, [updateProtocolList, state.page, state.filter]);
+
+  const changePage = (page) => {
+    dispatch({ type: CHANGE_PAGE, payload: page });
+  };
 
   return (
     <ProtocolContext.Provider
@@ -55,6 +65,7 @@ const ProtocolProvider = ({ children }) => {
         setFilter,
         updateProtocol,
         setUpdateProtocolList,
+        changePage,
       }}
     >
       {children}
