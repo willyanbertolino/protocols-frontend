@@ -1,4 +1,4 @@
-# Simple React app for Simple-CRUD-api
+# Protocols
 
 Lives on: https://protocols.willyanhpbertolino.app.br/
 
